@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MvvmXamarinShow.Views.ContactItems">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Write a message to show in output label!" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="30" />
+            <Entry Text="{Binding Message}" Placeholder="Message" />
+            <Button Text="Send" Command="{Binding ShowMessageCommand}" />
+            <Label Text="{Binding DisplayMessage}" FontSize="40" FontAttributes="Bold" />
+            <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
