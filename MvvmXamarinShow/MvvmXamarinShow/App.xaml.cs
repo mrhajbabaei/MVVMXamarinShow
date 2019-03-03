@@ -1,5 +1,7 @@
 ﻿using MvvmXamarinShow.Views;
 using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +14,7 @@ namespace MvvmXamarinShow
         {
             InitializeComponent();
 
-            MainPage = new ContactItems();
+            MainPage = new NavigationPage(new ContactItems());
         }
 
         protected override void OnStart()

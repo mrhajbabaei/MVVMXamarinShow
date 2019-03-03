@@ -3,14 +3,39 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
+using MvvmXamarinShow.Views;
+using Xamarin.Forms;
 
 namespace MvvmXamarinShow.ViewModels
 {
-    class ContactItemsViewModel : INotifyPropertyChanged
+    class ContactItemsViewModel : BaseViewModel
     {
         private string title;
         private string message;
         private bool isBusy;
+
+        public ContactItemsViewModel() 
+        {
+            ShowMessageCommand = new Command(ShowInputMessage, 
+                                        (state) => !IsBusy );
+            GoToInfoPageCommand = new Command(() => GoToInfoPage());
+        }
+
+        public Command GoToInfoPageCommand { get; set; }
+
+        public async Task GoToInfoPage() 
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new InfoPage());
+        }
+
+        async private void ShowInputMessage(object obj) 
+        {
+            IsBusy = true;
+            await Task.Delay(4000);
+            IsBusy = false;
+            Application.Current.MainPage.DisplayAlert("Message", $"The input message is: {Message}", "Ok");
+        }
 
         public string Title { get { return title; }
             set 
@@ -25,6 +50,11 @@ namespace MvvmXamarinShow.ViewModels
             set 
             {
                 message = value;
+                if (message == "mohammad")
+                    IsBusy = true;
+                else
+                    IsBusy = false;
+
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(DisplayMessage));
             }
@@ -41,20 +71,11 @@ namespace MvvmXamarinShow.ViewModels
             {
                 isBusy = value;
                 OnPropertyChanged();
-
+                ShowMessageCommand.ChangeCanExecute();
             }
         }
 
-        public ContactItemsViewModel() 
-        {
-
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName] string name = "" ) 
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        public Command ShowMessageCommand { get; }
 
         void ShowMessage() 
         {

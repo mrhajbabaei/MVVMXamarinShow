@@ -7,6 +7,7 @@
             <Label Text="Write a message to show in output label!" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" FontSize="30" />
             <Entry Text="{Binding Message}" Placeholder="Message" />
             <Button Text="Send" Command="{Binding ShowMessageCommand}" />
+            <Button Text="Next" Command="{Binding GoToInfoPageCommand}" />
             <Label Text="{Binding DisplayMessage}" FontSize="40" FontAttributes="Bold" />
             <ActivityIndicator IsRunning="{Binding IsBusy}"/>
         </StackLayout>
